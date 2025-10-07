@@ -13,7 +13,7 @@ header{
     background-color: var(--primary-color);
     position: fixed;
     height: 100%;
-    width: 20.8rem;
+    width: 24rem;
     top: 0;
     left: 0;
     z-index: 10001;
@@ -52,7 +52,7 @@ header{
     height: 100%;
     margin: 0 auto;
     padding: 0 4rem;
-    margin-left: 20.8rem;
+    margin-left: 24rem;
     transition: margin-left 0.3s ease;
 }
 .header-container.sidebar-hidden {
@@ -171,7 +171,7 @@ header .header-right{
 
 main{
     margin-top: 10rem;
-    margin-left: 24.8rem;
+    margin-left: 22rem;
     margin-right: 4rem;
     height: 100%;
     box-shadow: #DCE3F1 0 0 0 1px, #DCE3F1 0 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0 2px 2px -1px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
@@ -203,7 +203,7 @@ main.sidebar-hidden {
 }
 
 .sidebar-body{
-    width: 19.1rem;
+    width: 22rem;
     padding: 0.6rem 0;
     margin: auto;
     transition: width 0.3s ease;
@@ -227,11 +227,11 @@ main.sidebar-hidden {
     margin-right: 1rem;
 }
 .sidebar-nav ul li a:hover{
-    background-color: #313131;
+    background-color: #2d2f33;
 
 }
 .sidebar-nav .active{
-      background-color: #313131;
+      background-color: #2d2f33;
 }
 
 .sidebar-footer{
@@ -263,7 +263,7 @@ main.sidebar-hidden {
     transition: background-color .22s ease;
 }
 .sidebar-footer-link .sidebar-footer-content:hover{ 
-    background-color: #313131;
+    background-color: #2d2f33;
 }
 
 /* Perfil compacto en el footer */
@@ -318,7 +318,7 @@ main.sidebar-hidden {
     transform: rotate(180deg);
 }
 .sidebar-profile:hover{
-    background: #313131;
+    background: #2d2f33;
 }
 
 .footer-dropdown {
@@ -327,7 +327,7 @@ main.sidebar-hidden {
     left: 50%;
     transform: translateX(-50%) translateY(0);
     width: 17rem; /* coincide con el ancho del perfil */
-    background: #313131;
+    background: #2d2f33;
     border: 1px solid rgba(220,227,241,0.08);
     border-radius: 1rem;
     box-shadow: 0 20px 60px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
