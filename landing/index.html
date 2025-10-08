@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGM Cosmetics - Belleza Minimalista</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dgm-bg-primary: #faf9f7;
+            --dgm-bg-secondary: #ffffff;
+            --dgm-text-primary: #1a1a1a;
+            --dgm-text-secondary: #6b6b6b;
+            --dgm-accent: #d4a574;
+            --dgm-accent-dark: #b8935f;
+            --dgm-border: #e8e5e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--dgm-bg-primary);
+            color: var(--dgm-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .dgm-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(250, 249, 247, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--dgm-border);
+        }
+
+        .dgm-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dgm-logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--dgm-text-primary);
+        }
+
+        .dgm-nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .dgm-nav-links a {
+            color: var(--dgm-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .dgm-nav-links a:hover {
+            color: var(--dgm-accent);
+        }
+
+        .dgm-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .dgm-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--dgm-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .dgm-hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 100%);
+        }
+
+        .dgm-hero-content {
+            max-width: 900px;
+        }
+
+        .dgm-hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dgm-text-primary);
+        }
+
+        .dgm-hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--dgm-text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .dgm-hero-cta {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: var(--dgm-text-primary);
+            color: var(--dgm-bg-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid var(--dgm-text-primary);
+        }
+
+        .dgm-hero-cta:hover {
+            background-color: transparent;
+            color: var(--dgm-text-primary);
+        }
+
+        /* Search & Categories */
+        .dgm-search-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .dgm-search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .dgm-search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 1px solid var(--dgm-border);
+            background-color: var(--dgm-bg-secondary);
+            font-size: 1rem;
+            color: var(--dgm-text-primary);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .dgm-search-input:focus {
+            border-color: var(--dgm-accent);
+        }
+
+        .dgm-search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dgm-text-secondary);
+        }
+
+        .dgm-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .dgm-category-btn {
+            padding: 0.75rem 2rem;
+            background-color: transparent;
+            border: 1px solid var(--dgm-border);
+            color: var(--dgm-text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+        }
+
+        .dgm-category-btn:hover,
+        .dgm-category-btn.dgm-active {
+            background-color: var(--dgm-text-primary);
+            color: var(--dgm-bg-primary);
+            border-color: var(--dgm-text-primary);
+        }
+
+        /* Products Grid */
+        .dgm-store {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .dgm-section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .dgm-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .dgm-product-card {
+            background-color: var(--dgm-bg-secondary);
+            border: 1px solid var(--dgm-border);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dgm-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .dgm-product-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            background-color: var(--dgm-bg-primary);
+        }
+
+        .dgm-product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dgm-product-category {
+            font-size: 0.75rem;
+            color: var(--dgm-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .dgm-product-name {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--dgm-text-primary);
+        }
+
+        /* Added product description styles */
+        .dgm-product-description {
+            font-size: 0.85rem;
+            color: var(--dgm-text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .dgm-product-price {
+            font-size: 1.25rem;
+            color: var(--dgm-accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Added product action buttons styles */
+        .dgm-product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .dgm-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .dgm-btn-primary {
+            background-color: var(--dgm-text-primary);
+            color: var(--dgm-bg-primary);
+        }
+
+        .dgm-btn-primary:hover {
+            background-color: var(--dgm-accent-dark);
+        }
+
+        .dgm-btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .dgm-btn-whatsapp:hover {
+            background-color: #20ba5a;
+        }
+
+        .dgm-btn-whatsapp svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .dgm-no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--dgm-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Added shopping cart styles */
+        .dgm-cart-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 6rem;
+            width: 60px;
+            height: 60px;
+            background-color: var(--dgm-text-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 999;
+            border: none;
+        }
+
+        .dgm-cart-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dgm-cart-button svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .dgm-cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--dgm-accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .dgm-cart-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            background-color: var(--dgm-bg-secondary);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dgm-cart-panel.dgm-active {
+            right: 0;
+        }
+
+        .dgm-cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .dgm-cart-overlay.dgm-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dgm-cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--dgm-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dgm-cart-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .dgm-cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dgm-text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .dgm-cart-close:hover {
+            color: var(--dgm-text-primary);
+        }
+
+        .dgm-cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .dgm-cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--dgm-border);
+            margin-bottom: 1rem;
+            background-color: var(--dgm-bg-primary);
+        }
+
+        .dgm-cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            background-color: var(--dgm-bg-secondary);
+        }
+
+        .dgm-cart-item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dgm-cart-item-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .dgm-cart-item-category {
+            font-size: 0.75rem;
+            color: var(--dgm-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .dgm-cart-item-price {
+            font-size: 1rem;
+            color: var(--dgm-accent);
+            font-weight: 500;
+        }
+
+        .dgm-cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--dgm-text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .dgm-cart-item-remove:hover {
+            color: #e74c3c;
+        }
+
+        .dgm-cart-empty {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--dgm-text-secondary);
+        }
+
+        .dgm-cart-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--dgm-border);
+            background-color: var(--dgm-bg-primary);
+        }
+
+        .dgm-cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .dgm-cart-total-label {
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .dgm-cart-total-amount {
+            font-weight: 500;
+            color: var(--dgm-accent);
+        }
+
+        .dgm-cart-checkout {
+            width: 100%;
+            padding: 1rem;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .dgm-cart-checkout:hover {
+            background-color: #20ba5a;
+        }
+
+        .dgm-cart-checkout svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* WhatsApp Button */
+        .dgm-whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .dgm-whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .dgm-whatsapp-icon {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Footer */
+        .dgm-footer {
+            background-color: var(--dgm-text-primary);
+            color: var(--dgm-bg-primary);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .dgm-footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dgm-footer-text {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dgm-nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: var(--dgm-bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                border-bottom: 1px solid var(--dgm-border);
+            }
+
+            .dgm-nav-links.dgm-active {
+                transform: translateX(0);
+            }
+
+            .dgm-menu-toggle {
+                display: flex;
+            }
+
+            .dgm-menu-toggle.dgm-active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .dgm-menu-toggle.dgm-active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .dgm-menu-toggle.dgm-active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .dgm-products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .dgm-categories {
+                gap: 0.75rem;
+            }
+
+            .dgm-category-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .dgm-whatsapp-btn {
+                width: 55px;
+                height: 55px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .dgm-cart-button {
+                width: 55px;
+                height: 55px;
+                bottom: 1.5rem;
+                right: 5rem;
+            }
+
+            .dgm-cart-panel {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dgm-products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dgm-nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .dgm-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .dgm-store {
+                padding: 3rem 1.5rem;
+            }
+
+            .dgm-product-actions {
+                gap: 0.5rem;
+            }
+
+            .dgm-btn {
+                padding: 0.65rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+        .dgm-logo {
+            width: 200px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        .dgm-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dgm-header">
+        <nav class="dgm-nav">
+            <div class="dgm-logo"><img src="kharoma.jpg" alt="kharoma"></div>
+            <ul class="dgm-nav-links" id="dgmNavLinks">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#store">Tienda</a></li>
+                <li><a href="#about">Nosotros</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <button class="dgm-menu-toggle" id="dgmMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="dgm-hero" id="home">
+        <div class="dgm-hero-content">
+            <h1 class="dgm-hero-title">Belleza sin límites</h1>
+            <p class="dgm-hero-subtitle">Descubre nuestra colección exclusiva de cosméticos premium diseñados para realzar tu belleza natural</p>
+            <a href="#store" class="dgm-hero-cta">Explorar Colección</a>
+        </div>
+    </section>
+
+    <!-- Search & Categories -->
+    <section class="dgm-search-section">
+        <div class="dgm-search-container">
+            <input 
+                type="text" 
+                class="dgm-search-input" 
+                id="dgmSearchInput" 
+                placeholder="Buscar productos..."
+                aria-label="Buscar productos"
+            >
+            <svg class="dgm-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+        </div>
+
+        <div class="dgm-categories" id="dgmCategories">
+            <button class="dgm-category-btn dgm-active" data-category="todos">Todos</button>
+            <button class="dgm-category-btn" data-category="cremas">Cremas</button>
+            <button class="dgm-category-btn" data-category="perfumes">Perfumes</button>
+            <button class="dgm-category-btn" data-category="uñas">Uñas</button>
+            <button class="dgm-category-btn" data-category="glass">Glass</button>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    <section class="dgm-store" id="store">
+        <h2 class="dgm-section-title">Nuestra Colección</h2>
+        <div class="dgm-products-grid" id="dgmProductsGrid">
+            <!-- Products will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Added shopping cart button -->
+    <button class="dgm-cart-button" id="dgmCartButton" aria-label="Carrito de compras">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <span class="dgm-cart-badge" id="dgmCartBadge">0</span>
+    </button>
+
+    <!-- Added shopping cart panel -->
+    <div class="dgm-cart-overlay" id="dgmCartOverlay"></div>
+    <div class="dgm-cart-panel" id="dgmCartPanel">
+        <div class="dgm-cart-header">
+            <h3 class="dgm-cart-title">Mi Carrito</h3>
+            <button class="dgm-cart-close" id="dgmCartClose" aria-label="Cerrar carrito">&times;</button>
+        </div>
+        <div class="dgm-cart-items" id="dgmCartItems">
+            <div class="dgm-cart-empty">Tu carrito está vacío</div>
+        </div>
+        <div class="dgm-cart-footer" id="dgmCartFooter" style="display: none;">
+            <div class="dgm-cart-total">
+                <span class="dgm-cart-total-label">Total:</span>
+                <span class="dgm-cart-total-amount" id="dgmCartTotal">$0.00</span>
+            </div>
+            <button class="dgm-cart-checkout" id="dgmCartCheckout">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                Pedir por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a 
+        href="https://wa.me/50433168947?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos" 
+        class="dgm-whatsapp-btn" 
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+    >
+        <svg class="dgm-whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer class="dgm-footer">
+        <div class="dgm-footer-content">
+            <p class="dgm-footer-text">© 2025 DGM Cosmetics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+    const dgmProducts = [
+    { 
+        id: 1, 
+        name: 'Crema Hidratante Luxury', 
+        category: 'cremas', 
+        price: 45.00, 
+        priceFormatted: '$45.00',
+        description: 'Crema hidratante de lujo con ingredientes naturales que nutre profundamente tu piel.',
+        image: 'https://www.postquam.com/582750/crema-hidratante-de-dia-luxury-gold-50ml.jpg'
+    },
+    { 
+        id: 2, 
+        name: 'Perfume Essence Noir', 
+        category: 'perfumes', 
+        price: 89.00, 
+        priceFormatted: '$89.00',
+        description: 'Fragancia elegante y sofisticada con notas florales y amaderadas de larga duración.',
+        image: 'https://m.media-amazon.com/images/I/51ISPVWJLxL._UF1000,1000_QL80_.jpg'
+    },
+    { 
+        id: 3, 
+        name: 'Esmalte de Uñas Rose', 
+        category: 'uñas', 
+        price: 18.00, 
+        priceFormatted: '$18.00',
+        description: 'Esmalte de uñas de secado rápido con acabado brillante y color duradero.',
+        image: 'https://www.beautyprofesional.com/wp-content/uploads/2023/03/Essence-GelNailColour-EsmalteUnas-08-ES934879-1.jpg'
+    },
+    { 
+        id: 4, 
+        name: 'Glass Serum Facial', 
+        category: 'glass', 
+        price: 65.00, 
+        priceFormatted: '$65.00',
+        description: 'Serum facial con efecto glass skin que ilumina y suaviza tu rostro al instante.',
+        image: 'https://m.media-amazon.com/images/I/61gwWo31nrL._UF1000,1000_QL80_.jpg'
+    },
+    { 
+        id: 5, 
+        name: 'Crema Anti-Edad Premium', 
+        category: 'cremas', 
+        price: 78.00, 
+        priceFormatted: '$78.00',
+        description: 'Fórmula avanzada anti-edad que reduce líneas de expresión y rejuvenece la piel.',
+        image: 'https://farmoliva.com/cdn/shop/files/2-IMG_cremas-antiedad_5000x5000_bfaef300-86a2-4d16-9eb2-d1f201078b10.jpg?v=1740648498&width=1946'
+    },
+    { 
+        id: 6, 
+        name: 'Perfume Floral Dream', 
+        category: 'perfumes', 
+        price: 95.00, 
+        priceFormatted: '$95.00',
+        description: 'Perfume floral delicado con notas de jazmín, rosa y vainilla para un aroma encantador.',
+        image: 'https://m.media-amazon.com/images/I/71zcsHbodgL._UF1000,1000_QL80_.jpg'
+    },
+    { 
+        id: 7, 
+        name: 'Kit Manicura Profesional', 
+        category: 'uñas', 
+        price: 42.00, 
+        priceFormatted: '$42.00',
+        description: 'Kit completo de manicura profesional con herramientas de alta calidad.',
+        image: 'https://m.media-amazon.com/images/I/71pWnuIxFXL._UF1000,1000_QL80_.jpg'
+    },
+    { 
+        id: 8, 
+        name: 'Glass Tónico Iluminador', 
+        category: 'glass', 
+        price: 52.00, 
+        priceFormatted: '$52.00',
+        description: 'Tónico iluminador que prepara tu piel y le da un brillo natural radiante.',
+        image: 'https://corazondecacao.mx/cdn/shop/files/cc10demayo-201.jpg'
+    },
+    { 
+        id: 9, 
+        name: 'Crema Nutritiva Noche', 
+        category: 'cremas', 
+        price: 58.00, 
+        priceFormatted: '$58.00',
+        description: 'Crema nutritiva nocturna que repara y regenera tu piel mientras duermes.',
+        image: 'https://www.dermaglos.com/Portals/0/images/ecommerce/7793742007576.jpg'
+    },
+    { 
+        id: 10, 
+        name: 'Perfume Citrus Fresh', 
+        category: 'perfumes', 
+        price: 72.00, 
+        priceFormatted: '$72.00',
+        description: 'Fragancia cítrica refrescante con notas de limón, naranja y bergamota.',
+        image: 'https://dcf2bca4.delivery.rocketcdn.me/wp-content/uploads/2023/10/Fresh-As-Citrus-Perfume-_-Eau-De-Parfum-100ml-by-Fragrance-World.webp'
+    },
+    { 
+        id: 11, 
+        name: 'Esmalte Gel UV', 
+        category: 'uñas', 
+        price: 25.00, 
+        priceFormatted: '$25.00',
+        description: 'Esmalte gel UV de larga duración con acabado profesional brillante.',
+        image: 'https://miasecretstore.com/cdn/shop/collections/Gelux_Gel_Polish_93c30099-bdde-4664-946a-fa831968fae9.jpg'
+    },
+    { 
+        id: 12, 
+        name: 'Glass Aceite Facial', 
+        category: 'glass', 
+        price: 68.00, 
+        priceFormatted: '$68.00',
+        description: 'Aceite facial ligero que hidrata profundamente y da luminosidad a tu piel.',
+        image: 'https://images.ctfassets.net/wlke2cbybljx/wJeRn3lJF3vTf1BA9lw7b/555ce491d556aa37dac8203574701d2f/006_210439_FACIAL_OIL_SL_FACIAL_OIL_JB_2112.jpg'
+    }
+];
+
+        let dgmCart = [];
+        let dgmCurrentCategory = 'todos';
+        let dgmSearchQuery = '';
+
+        // DOM Elements
+        const dgmProductsGrid = document.getElementById('dgmProductsGrid');
+        const dgmSearchInput = document.getElementById('dgmSearchInput');
+        const dgmCategoryButtons = document.querySelectorAll('.dgm-category-btn');
+        const dgmMenuToggle = document.getElementById('dgmMenuToggle');
+        const dgmNavLinks = document.getElementById('dgmNavLinks');
+        const dgmCartButton = document.getElementById('dgmCartButton');
+        const dgmCartPanel = document.getElementById('dgmCartPanel');
+        const dgmCartOverlay = document.getElementById('dgmCartOverlay');
+        const dgmCartClose = document.getElementById('dgmCartClose');
+        const dgmCartBadge = document.getElementById('dgmCartBadge');
+        const dgmCartItems = document.getElementById('dgmCartItems');
+        const dgmCartFooter = document.getElementById('dgmCartFooter');
+        const dgmCartTotal = document.getElementById('dgmCartTotal');
+        const dgmCartCheckout = document.getElementById('dgmCartCheckout');
+
+        const WHATSAPP_NUMBER = '50433158947';
+
+        function dgmGenerateWhatsAppMessage(product) {
+            const message = `Hola! Me interesa el siguiente producto:%0A%0A` +
+                `📦 *${product.name}*%0A` +
+                `📁 Categoría: ${product.category}%0A` +
+                `💰 Precio: ${product.priceFormatted}%0A%0A` +
+                `${product.description}%0A%0A` +
+                `¿Está disponible?`;
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+        }
+
+        function dgmGenerateCartWhatsAppMessage() {
+            let message = `Hola! Me gustaría hacer el siguiente pedido:%0A%0A`;
+            
+            dgmCart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}*%0A`;
+                message += `   Categoría: ${item.category}%0A`;
+                message += `   Precio: ${item.priceFormatted}%0A%0A`;
+            });
+
+            const total = dgmCart.reduce((sum, item) => sum + item.price, 0);
+            message += `━━━━━━━━━━━━━━━━%0A`;
+            message += `💰 *TOTAL: $${total.toFixed(2)}*%0A%0A`;
+            message += `¿Pueden confirmar la disponibilidad?`;
+
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+        }
+
+        function dgmAddToCart(productId) {
+            const product = dgmProducts.find(p => p.id === productId);
+            if (product) {
+                dgmCart.push(product);
+                dgmUpdateCart();
+                dgmShowNotification('Producto agregado al carrito');
+            }
+        }
+
+        function dgmRemoveFromCart(index) {
+            dgmCart.splice(index, 1);
+            dgmUpdateCart();
+        }
+
+        function dgmUpdateCart() {
+            dgmCartBadge.textContent = dgmCart.length;
+
+            if (dgmCart.length === 0) {
+                dgmCartItems.innerHTML = '<div class="dgm-cart-empty">Tu carrito está vacío</div>';
+                dgmCartFooter.style.display = 'none';
+            } else {
+                dgmCartItems.innerHTML = dgmCart.map((item, index) => `
+                    <div class="dgm-cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="dgm-cart-item-image">
+                        <div class="dgm-cart-item-info">
+                            <div class="dgm-cart-item-name">${item.name}</div>
+                            <div class="dgm-cart-item-category">${item.category}</div>
+                            <div class="dgm-cart-item-price">${item.priceFormatted}</div>
+                        </div>
+                        <button class="dgm-cart-item-remove" onclick="dgmRemoveFromCart(${index})" aria-label="Eliminar producto">
+                            ×
+                        </button>
+                    </div>
+                `).join('');
+
+                const total = dgmCart.reduce((sum, item) => sum + item.price, 0);
+                dgmCartTotal.textContent = `$${total.toFixed(2)}`;
+                dgmCartFooter.style.display = 'block';
+            }
+        }
+
+        function dgmShowNotification(message) {
+            // Simple notification - could be enhanced with a toast component
+            console.log('[v0]', message);
+        }
+
+        function dgmToggleCart() {
+            dgmCartPanel.classList.toggle('dgm-active');
+            dgmCartOverlay.classList.toggle('dgm-active');
+            document.body.style.overflow = dgmCartPanel.classList.contains('dgm-active') ? 'hidden' : '';
+        }
+
+        // Render Products
+        function dgmRenderProducts() {
+            const filteredProducts = dgmProducts.filter(product => {
+                const matchesCategory = dgmCurrentCategory === 'todos' || product.category === dgmCurrentCategory;
+                const matchesSearch = product.name.toLowerCase().includes(dgmSearchQuery.toLowerCase()) ||
+                                     product.description.toLowerCase().includes(dgmSearchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filteredProducts.length === 0) {
+                dgmProductsGrid.innerHTML = '<div class="dgm-no-results">No se encontraron productos</div>';
+                return;
+            }
+
+            dgmProductsGrid.innerHTML = filteredProducts.map(product => `
+                <div class="dgm-product-card">
+                    <img src="${product.image}" alt="${product.name}" class="dgm-product-image">
+                    <div class="dgm-product-info">
+                        <div class="dgm-product-category">${product.category}</div>
+                        <h3 class="dgm-product-name">${product.name}</h3>
+                        <p class="dgm-product-description">${product.description}</p>
+                        <div class="dgm-product-price">${product.priceFormatted}</div>
+                        <div class="dgm-product-actions">
+                            <button class="dgm-btn dgm-btn-primary" onclick="dgmAddToCart(${product.id})">
+                                Agregar al Carrito
+                            </button>
+                            <a href="${dgmGenerateWhatsAppMessage(product)}" 
+                               class="dgm-btn dgm-btn-whatsapp" 
+                               target="_blank" 
+                               rel="noopener noreferrer">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
+                                Pedir Ahora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category Filter
+        dgmCategoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                dgmCategoryButtons.forEach(btn => btn.classList.remove('dgm-active'));
+                button.classList.add('dgm-active');
+                dgmCurrentCategory = button.dataset.category;
+                dgmRenderProducts();
+            });
+        });
+
+        // Search
+        dgmSearchInput.addEventListener('input', (e) => {
+            dgmSearchQuery = e.target.value;
+            dgmRenderProducts();
+        });
+
+        // Mobile Menu Toggle
+        dgmMenuToggle.addEventListener('click', () => {
+            dgmMenuToggle.classList.toggle('dgm-active');
+            dgmNavLinks.classList.toggle('dgm-active');
+        });
+
+        // Close mobile menu when clicking a link
+        dgmNavLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                dgmMenuToggle.classList.remove('dgm-active');
+                dgmNavLinks.classList.remove('dgm-active');
+            });
+        });
+
+        dgmCartButton.addEventListener('click', dgmToggleCart);
+        dgmCartClose.addEventListener('click', dgmToggleCart);
+        dgmCartOverlay.addEventListener('click', dgmToggleCart);
+
+        dgmCartCheckout.addEventListener('click', () => {
+            if (dgmCart.length > 0) {
+                window.open(dgmGenerateCartWhatsAppMessage(), '_blank');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initial render
+        dgmRenderProducts();
+        dgmUpdateCart();
+    </script>
+</body>
+</html>

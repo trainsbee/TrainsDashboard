@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Header Main Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .layout-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #1a1a2e;
+            color: white;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            min-height: 64px;
+        }
+
+        .main-content {
+            flex: 1;
+            background-color: #f9fafb;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.active {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 250px;
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-container">
+        <aside class="sidebar">
+             Contenido del sidebar 
+        </aside>
+
+        <div class="content-wrapper">
+            <header class="header">
+                 Contenido del header 
+            </header>
+
+            <main class="main-content">
+                 Contenido principal 
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para funcionalidad futura
+        console.log('Layout cargado correctamente');
+    </script>
+</body>
+</html>
