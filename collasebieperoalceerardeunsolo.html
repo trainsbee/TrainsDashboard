@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Header Main Layout</title>
+    <style>
+        :root {
+            --primary-color-o: #161618;
+            --primary-color: #19191c;
+            --primary-color-2: #181A20;
+            --secondary-color: #374151;
+            --border-color: #262626;
+            --border-color-secondary: #232731;
+            --input-focus: #2a2d37;
+            --bg-body: #0e1014;
+            --bg-search: #3a3b3e;
+            --border-search: #232751;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+            font-family: "Roboto", sans-serif;
+        }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-size: 1.6rem;
+            line-height: 2.7rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        a {
+            display: inline-flex;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            border: 0;
+            outline: 0;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        span[icon-data] {
+            display: flex;
+        }
+
+        span[icon-data] svg {
+            width: 1.6rem;
+        }
+
+        input, select {
+            border: 0;
+            outline: none;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        select::-webkit-inner-spin-button,
+        select::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="date"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .tree-wrapper::-webkit-scrollbar {
+            border: none;
+            width: 6px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: #EAEEFB;
+            border-radius: 24px;
+        }
+
+        .layout-container {
+            display: grid;
+            grid-template-columns: 24rem 1fr;
+            height: 100vh;
+            transition: grid-template-columns 0.3s ease;
+        }
+
+        .sidebar {
+            background-color: #1a1a2e;
+            color: white;
+            height: 100%;
+            width: 24rem;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            background-color: #f9fafb;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .toggle-btn {
+            background: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-btn svg {
+            width: 2.4rem;
+            height: 2.4rem;
+            fill: #374151;
+        }
+
+        .layout-container.sidebar-hidden {
+            grid-template-columns: 4rem 1fr;
+        }
+
+        .layout-container.sidebar-hidden .sidebar {
+          width: 4rem;
+          transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+              .layout-container.sidebar-hidden {
+            grid-template-columns: 4rem 1fr;
+        }
+
+        .layout-container.sidebar-hidden .sidebar {
+          width: 4rem;
+          transition: width 0.3s ease;
+        }
+
+        }
+        @media (max-width: 480px) {
+          .sidebar.transitioning{
+          transition: width 0.3s ease;
+          }
+          .layout-container{
+            grid-template-columns: 0rem 1fr;
+        }
+        .layout-container .sidebar {
+            width: 0;
+            transition: width 0.3s ease;
+            
+            
+        }
+        .layout-container.sidebar-hidden {
+            grid-template-columns:0rem 1fr;
+        }
+        .layout-container.sidebar-hidden .sidebar {
+            width: 24rem;
+            transform: translateX(0);
+            transition: width 0.3s ease;
+        }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+    }
+    .overlay.active {
+        display: block;
+    }
+        }
+    </style>
+</head>
+<body>
+  <div class="overlay"></div>
+    <div class="layout-container">
+        <aside class="sidebar">
+            Contenido del sidebar
+        </aside>
+
+        <div class="content-wrapper">
+            <header class="header">
+                <button class="toggle-btn" aria-label="Toggle sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+                    </svg>
+                </button>
+                Contenido del header
+            </header>
+
+            <main class="main-content">
+                <div class="container">
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                    <h1>Contenido principal</h1>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Layout cargado correctamente');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const layoutContainer = document.querySelector('.layout-container');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+
+            toggleBtn.addEventListener('click', () => {
+                layoutContainer.classList.toggle('sidebar-hidden');
+                overlay.classList.toggle('active');
+            });
+            overlay.addEventListener('click', () => {
+                layoutContainer.classList.remove('sidebar-hidden');
+
+                overlay.classList.remove('active');
+            }); 
+        });
+    </script>
+</body>
+</html>
