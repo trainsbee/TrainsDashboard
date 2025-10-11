@@ -203,9 +203,70 @@ a {
     .overlay {
       display: none;
     }
-    @media (max-width: 480px) {
-      .overlay {
+   /* Estilos para menú desplegable */
+.menu-item-with-submenu {
+    position: relative;
+    z-index: 10;
+}
 
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.submenu-arrow {
+    transition: all 0.3s ease;
+    margin-left: auto;
+    pointer-events: none;
+}
+
+/* Menú desplegable con JavaScript */
+.menu-item-with-submenu.open .submenu-arrow {
+    transform: rotate(90deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    border-left: 2px solid var(--border-color-dark);
+    padding-left: 1rem;
+    position: relative;
+    z-index: 5;
+}
+
+/* Abrir submenu cuando tiene clase 'open' */
+.menu-item-with-submenu.open .submenu {
+    max-height: 200px;
+}
+
+.submenu li {
+    margin: 0.5rem 0;
+}
+
+.sub-item-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #a0a3b1;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sub-item-link:hover {
+    background-color: hsl(240, 3.7%, 15.9%);
+    color: #d3d5de;
+}
+@media (max-width: 480px) {
+      .overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -218,7 +279,7 @@ a {
         grid-template-columns: 0 1fr;
         transition: grid-template-columns 0.3s ease;
       }
-      aside {
+      .sidebar {
         width: 0;
       }
       .collapsed {
@@ -329,91 +390,9 @@ a {
       </div>
     </aside>
     <style>
-/* Estilos para menú desplegable */
-.menu-item-with-submenu {
-    position: relative;
-    z-index: 10;
-}
 
-.menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-}
-
-.submenu-arrow {
-    transition: all 0.3s ease;
-    margin-left: auto;
-    pointer-events: none;
-}
-
-/* Menú desplegable con JavaScript */
-.menu-item-with-submenu.open .submenu-arrow {
-    transform: rotate(90deg);
-}
-
-.submenu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    margin-left: 2rem;
-    margin-top: 1rem;
-    border-left: 2px solid var(--border-color-dark);
-    padding-left: 1rem;
-    position: relative;
-    z-index: 5;
-}
-
-/* Abrir submenu cuando tiene clase 'open' */
-.menu-item-with-submenu.open .submenu {
-    max-height: 200px;
-}
-
-.submenu li {
-    margin: 0.5rem 0;
-}
-
-.sub-item-link {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    color: #a0a3b1;
-    font-size: 1.3rem;
-    transition: all 0.3s ease;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.sub-item-link:hover {
-    background-color: hsl(240, 3.7%, 15.9%);
-    color: #d3d5de;
-}
     </style>
 
-    <script>
-// Delegación única para submenús y dropdown de perfil
-(function(){
-  
-    document.addEventListener('click', (e) => {
-        // 1) Acordeón de submenús
-        const toggle = e.target.closest('.menu-toggle');
-        if (toggle) {
-            e.preventDefault();
-            const current = toggle.closest('.menu-item-with-submenu');
-            if (current) {
-                document.querySelectorAll('.menu-item-with-submenu.open').forEach(li => {
-                    if (li !== current) li.classList.remove('open');
-                });
-                current.classList.toggle('open');
-            }
-            return; // no propagar más acciones para este click
-        }
-    });
-})();
-    </script>
     <div class="content">
       <header>
         <button id="toggleBtn">Toggle</button>
@@ -428,6 +407,27 @@ a {
   <script>
     feather.replace();
 </script> 
+<script>
+  // Delegación única para submenús y dropdown de perfil
+  (function(){
+    
+      document.addEventListener('click', (e) => {
+          // 1) Acordeón de submenús
+          const toggle = e.target.closest('.menu-toggle');
+          if (toggle) {
+              e.preventDefault();
+              const current = toggle.closest('.menu-item-with-submenu');
+              if (current) {
+                  document.querySelectorAll('.menu-item-with-submenu.open').forEach(li => {
+                      if (li !== current) li.classList.remove('open');
+                  });
+                  current.classList.toggle('open');
+              }
+              return; // no propagar más acciones para este click
+          }
+      });
+  })();
+      </script>
   <script>
     const toggleBtn = document.getElementById('toggleBtn');
     const sidebar = document.getElementById('sidebar');

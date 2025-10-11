@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Header Main Layout</title>
-    <style>
-        :root {
-    --primary-color-o: #161618; /* Color principal */
-    --primary-color: #19191c; /* Color principal */
-    --primary-color-2:  #181A20;
-    --secondary-color: #374151;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Toggle</title>
+  <style>
+      :root {
+        --bg-body: #0e1014;
+        --bg-sidebar: #19191c;
+        --bg-header:#19191c;
+        --bg-main:#0e1014;
 
-    --border-color: #262626;
-    --border-color-secondary: #232731;
-    --input-focus: #2a2d37;
-    --bg-body: #0e1014;
-    --bg-search: #3a3b3e;
-    --border-search: #232751;
-}
-
-* {
+        --border-color-header:#262626;
+        --border-color-sidebar:#262626;
+        --color-scroll-dark:#52525b;
+        --color-scroll-light:#EAEEFB;
+    }
+  * {
 margin: 0;
 padding: 0;
 }
@@ -35,169 +31,247 @@ font-family: "Roboto", sans-serif;
 box-sizing: border-box;
 }
 body {
-/*    background-color: var(--bg-body);*/
-/*    background-color: #f9f9fc;*/
-/*    background-color: #f0f4ff;*/
-background-color: var(--bg-body);
-font-size: 1.6rem;
-line-height: 2.7rem;
-font-family: 'Roboto', sans-serif;
-}
-a{
-display:inline-flex;
-text-decoration: none;
-}
-ul{
-list-style: none;
-}
-button{
-border: 0;
-outline: 0;
-}
-img{
-width: 100%;
-height: 100%;
-}
-span[icon-data]{
-display: flex;
-}
-span[icon-data] svg{
-width: 1.6rem;
-
-}
-input,select{
-    border: 0;
-    outline: none;
-}
-/* Quitar estilos predeterminados para select */
-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
+  background-color: var(--bg-body);
+  font-size: 1.6rem;
+  line-height: 2.7rem;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Para dispositivos iOS */
-select::-ms-expand {
-    display: none;
-}
-
-select::-webkit-inner-spin-button,
-select::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-
-/* Quitar estilos predeterminados para inputs de texto, date, y otros */
-input[type="text"],
-input[type="search"],
-input[type="date"],
-input[type="email"],
-input[type="password"],
-textarea {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
-}
-
-/* Quitar estilos predeterminados para inputs de número */
-input[type="number"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-.tree-wrapper::-webkit-scrollbar {
-    border: none;
-    width: 6px;
-}
-
-.tree-wrapper::-webkit-scrollbar-thumb {
-    background: #EAEEFB;
-    border-radius: 24px;
-}
-        .layout-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            height: 100vh;
+a {
+            display: inline-flex;
+            text-decoration: none;
         }
 
-        .sidebar {
-            background-color: #1a1a2e;
-            color: white;
+        ul {
+            list-style: none;
+        }
+
+        button {
+            border: 0;
+            outline: 0;
+        }
+
+        img {
+            width: 100%;
             height: 100%;
-            overflow-y: auto;
         }
 
-        .content-wrapper {
+        span[icon-data] {
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
         }
 
-        .header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 1rem 2rem;
-            min-height: 64px;
+        span[icon-data] svg {
+            width: 1.6rem;
         }
 
-        .main-content {
-            flex: 1;
-            background-color: #f9fafb;
-            padding: 2rem;
-            overflow-y: auto;
+        input, select {
+            border: 0;
+            outline: none;
         }
 
-        @media (max-width: 768px) {
-            .layout-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-
-            .sidebar.active {
-                display: block;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 250px;
-                z-index: 1000;
-            }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
         }
-    </style>
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        select::-webkit-inner-spin-button,
+        select::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="date"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .tree-wrapper::-webkit-scrollbar {
+            border: none;
+            width: 6px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: var(--color-scroll-dark);
+            border-radius: 24px;
+        }
+    .app {
+      display: grid;
+      grid-template-columns: auto 1fr; /* sidebar se adapta con width */
+      transition: grid-template-columns 0.3s ease;
+    }
+
+    aside {
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color-sidebar);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+      width: 24rem; /* ancho inicial */
+      transition: width 0.3s ease; /* transición suave */
+      z-index: 1011;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--bg-header);
+      border-bottom: 1px solid var(--border-color-header);
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    main {
+      background-color: var(--bg-main);
+      color: white;
+    }
+
+    /* Sidebar colapsado */
+    .collapsed {
+      width: 4rem; /* ancho reducido */
+    }
+    .overlay {
+      display: none;
+    }
+    @media (max-width: 480px) {
+      .overlay {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1010;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .app {
+        grid-template-columns: 0 1fr;
+        transition: grid-template-columns 0.3s ease;
+      }
+      aside {
+        width: 0;
+      }
+      .collapsed {
+        width: 24rem;
+      }
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
 </head>
-<body>
-    <div class="layout-container">
-        <aside class="sidebar">
-             Contenido del sidebar 
-        </aside>
-
-        <div class="content-wrapper">
-            <header class="header">
-                 Contenido del header 
-            </header>
-
-            <main class="main-content">
-                 Contenido principal 
-            </main>
+<body class="tree-wrapper">
+  <div class="overlay"></div> 
+  <div class="app">
+    <aside class="sidebar" id="sidebar">sidebar</aside>
+    <div class="content">
+      <header>
+        <button id="toggleBtn">Toggle</button>
+      </header>
+      <main>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
         </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+        <div class="container">
+          <p>Contenido muy largo...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        <p>Más contenido...</p>
+        </div>
+      </main>
     </div>
+  </div>
 
-    <script>
-        // JavaScript para funcionalidad futura
-        console.log('Layout cargado correctamente');
-    </script>
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.querySelector('.overlay');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('collapsed');
+      overlay.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
-<style>
-    
-</style>
