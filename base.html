@@ -142,7 +142,7 @@ a {
     }
     .sidebar-nav ul{
       list-style: none;
-      padding: 0rem 1rem;
+      padding: 0rem 0.5rem;
     }
     .sidebar-nav ul li{
       margin: 0.2rem 0;
@@ -152,20 +152,19 @@ a {
       align-items: center;
       color: #707174;
     }
+    
+   
     .sidebar-nav ul li a .icon{
-      background-color: #2d2f33;
-      width:4rem;
-      height:4rem;
+     
+      width:3rem;
+      height:3rem;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      
+      flex-shrink: 0;
     }
-    .sidebar-nav ul li a:hover{
-      background-color: #2d2f33;
-      color: #d1d5db;
-    }
+  
 
     .sidebar-header{
        border-bottom: 1px solid var(--border-color-dark);
@@ -196,10 +195,7 @@ a {
       padding: 2rem;
     }
 
-    /* Sidebar colapsado */
-    .collapsed {
-      width: 4rem; /* ancho reducido */
-    }
+   
     .overlay {
       display: none;
     }
@@ -265,6 +261,23 @@ a {
     background-color: hsl(240, 3.7%, 15.9%);
     color: #d3d5de;
 }
+.collapsed {
+  width: 4rem; /* ancho reducido */
+}
+.menu-text-collapse .menu-text {
+      width: 0rem;
+      opacity: 0;
+    }
+
+    .menu-text-collapse .submenu-arrow {
+      width: 0rem;
+      opacity: 0;
+    }
+   
+    .sidebar-nav ul li a:hover{
+      background-color: #2d2f33;
+      color: #d1d5db;
+    }
 @media (max-width: 480px) {
       .overlay {
         position: fixed;
@@ -279,6 +292,7 @@ a {
         grid-template-columns: 0 1fr;
         transition: grid-template-columns 0.3s ease;
       }
+      
       .sidebar {
         width: 0;
       }
@@ -288,6 +302,16 @@ a {
       .overlay.active {
         display: block;
       }
+      .menu-text-collapse .menu-text {
+      width:auto;
+      opacity: 1;
+    }
+
+    .menu-text-collapse .submenu-arrow {
+      width: auto;
+      opacity: 1;
+    }
+      
     }
   </style>
 </head>
@@ -376,7 +400,7 @@ a {
                   <li>
                       <a href="#">
                           <span class="icon">
-                              <i data-feather="git_commit"></i>
+                              <i data-feather="git-commit"></i>
                           </span>
                           <span class="menu-text">Settings</span>
                       </a>
@@ -432,18 +456,60 @@ a {
     const toggleBtn = document.getElementById('toggleBtn');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.querySelector('.overlay');
-    
 
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-      overlay.classList.toggle('active');
+    // Inicializar collapsed en false si no existe
+if (localStorage.getItem('collapsed') === null) {
+  localStorage.setItem('collapsed', 'false');
+}
 
-    });
+
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  sidebar.classList.toggle('menu-text-collapse');
+  overlay.classList.toggle('active');
+
+  // Actualizar el valor en localStorage
+  const collapsed = localStorage.getItem('collapsed') === 'true';
+  localStorage.setItem('collapsed', (!collapsed).toString());
+});
 
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('collapsed');
       overlay.classList.remove('active');
-    });
+      sidebar.classList.remove('menu-text-collapse');
+          });
+
+
+
+const IsMobile = () => {
+    return window.innerWidth <= 480;
+}
+
+          
+   
+          // Evento para expandir el sidebar al pasar el mouse
+sidebar.addEventListener('mouseenter', () => {
+    if(!IsMobile() && localStorage.getItem('collapsed') === 'true'){
+    
+        sidebar.classList.remove('collapsed');
+        sidebar.classList.remove('menu-text-collapse');
+        overlay.classList.add('active');
+    }
+    
+    
+});
+
+// Evento para colapsar el sidebar al salir el mouse
+sidebar.addEventListener('mouseleave', () => {
+    if(!IsMobile() && localStorage.getItem('collapsed') === 'true'){
+        sidebar.classList.add('collapsed');
+        sidebar.classList.add('menu-text-collapse');
+        overlay.classList.remove('active');
+    }
+});
   </script>
+
+
 </body>
 </html>

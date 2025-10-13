@@ -1,266 +1,491 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <script src="assets/js/libraries/snapicons.js"></script>
-    <style>
-        .wrapper {
-      min-height: 100vh;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Toggle</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+ 
+  <style>
+      :root {
+        --bg-body: #0e1014;
+        --bg-sidebar: #19191c;
+        --bg-header:#19191c;
+        --bg-main:#0e1014;
+
+      
+        --border-color-dark:#2d2f33;
+
+        --color-scroll-dark:#52525b;
+        --color-scroll-light:#EAEEFB;
+    }
+  * {
+margin: 0;
+padding: 0;
+}
+
+html {
+box-sizing: border-box;
+font-size: 62.5%;
+font-family: "Roboto", sans-serif;
+}
+*,
+::after,
+::before {
+box-sizing: border-box;
+}
+body {
+  background-color: var(--bg-body);
+  font-size: 1.6rem;
+  line-height: 2.7rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+            display: inline-flex;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            border: 0;
+            outline: 0;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        span[icon-data] {
+            display: flex;
+        }
+
+        .icon svg {
+            width: 1.8rem;
+        }
+
+        input, select {
+            border: 0;
+            outline: none;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        select::-webkit-inner-spin-button,
+        select::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="date"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #fff;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .tree-wrapper::-webkit-scrollbar {
+            border: none;
+            width: 6px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: var(--color-scroll-dark);
+            border-radius: 24px;
+        }
+    .app {
+      display: grid;
+      grid-template-columns: auto 1fr; /* sidebar se adapta con width */
+      transition: grid-template-columns 0.3s ease;
+    }
+
+    .sidebar {
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color-dark);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+      width: 24rem; /* ancho inicial */
+      transition: width 0.3s ease; /* transición suave */
+      z-index: 1011;
       display: flex;
       flex-direction: column;
     }
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <aside class="sidebar">
-            <div class="sidebar-container">
-                <div class="sidebar-header">
-                    <a href="index.html" class="sidebar-brand" aria-label="Ir al inicio del dashboard">
-                        <div class="sidebar-logo">
-                            <span class="sn-icon">
-                                <span icon-data="server"></span>
-                            </span>
-                        </div>
-                        <div class="sidebar-title">
-                            <span>
-                                Noxtbing
-                            </span>
-                        </div>
-                    </a>
-    
-                </div>
-                
-                <div class="sidebar-body">
-                    <nav class="sidebar-nav">
-                        <ul>
-                            <li>
-                                <a href="#" class="active">
-                                    <span class="sn-icon">
-                                        <span icon-data="grid"></span>
-                                    </span>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sn-icon">
-                                        <span icon-data="git_commit"></span>
-                                    </span>
-                                    Settings
-                                </a>
-                            </li>
-                            <li class="menu-item-with-submenu">
-                                <a href="#" class="menu-toggle">
-                                    <span class="sn-icon">
-                                        <span icon-data="users"></span>
-                                    </span>
-                                    Users
-                                    <span class="submenu-arrow">
-                                        <span icon-data="chevron_down"></span>
-                                    </span>
-                                </a>
-                                <ul class="submenu">
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>User List</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>Add User</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>User Roles</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-with-submenu">
-                                <a href="#" class="menu-toggle">
-                                    <span class="sn-icon">
-                                        <span icon-data="users"></span>
-                                    </span>
-                                    Users
-                                    <span class="submenu-arrow">
-                                        <span icon-data="chevron_down"></span>
-                                    </span>
-                                </a>
-                                <ul class="submenu">
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>User List</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>Add User</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sub-item-link">
-                                            <span>User Roles</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sn-icon">
-                                        <span icon-data="git_commit"></span>
-                                    </span>
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="sidebar-footer">
-                    <a href="#" class="sidebar-footer-link">
-                       <div class="sidebar-footer-content">
-                        <span class="sn-icon">
-                            <span icon-data="settings"></span>
-                        </span>
-                        <div class="footer-text">
-                            <span>Settings</span>
-                        </div>
-                    </div>
-                    </a>
-                    <a href="#" class="sidebar-footer-link">
-                       <div class="sidebar-footer-content">
-                        <span class="sn-icon">
-                            <span icon-data="grid"></span>
-                        </span>
-                        <div class="footer-text">
-                            <span>Overview</span>
-                        </div>
-                    </div>
-                    </a>
-                    <a href="#" class="sidebar-footer-link">
-                       <div class="sidebar-footer-content">
-                        <span class="sn-icon">
-                            <span icon-data="users"></span>
-                        </span>
-                        <div class="footer-text">
-                            <span>Team</span>
-                        </div>
-                    </div>
-                    </a>
-                    <a href="#" class="sidebar-footer-link">
-                       <div class="sidebar-footer-content">
-                        <span class="sn-icon">
-                            <span icon-data="git_commit"></span>
-                        </span>
-                        <div class="footer-text">
-                            <span>Changelog</span>
-                        </div>
-                    </div>
-                    </a>
-                    <div class="sidebar-profile">
-                        <img src="https://themewagon.github.io/volt-react-dashboard/static/media/profile-picture-3.9a250e5c.jpg" alt="User profile">
-                        <div class="sidebar-profile-info">
-                            <span class="sidebar-profile-name">Sienna Hewitt</span>
-                            <span class="sidebar-profile-role">@microsoft</span>
-                        </div>
-                        <span class="sidebar-profile-chevron sn-icon">
-                            <span icon-data="chevron_down"></span>
-                        </span>
-                        <!-- Dropdown anclado al perfil (aparece arriba del perfil) -->
-                        <div class="footer-dropdown" hidden>
-                            <ul>
-                                <li><a href="#" class="footer-menu-link">Perfil</a></li>
-                                <li><a href="#" class="footer-menu-link">Preferencias</a></li>
-                                <li class="footer-divider" role="separator" aria-hidden="true"></li>
-                                <li><a href="#" class="footer-menu-link">Cerrar sesión</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-        <header>
-            <div class="header-container">
-                <div class="header-left">
-                    <div class="sidebar-toggle">
-                        <button class="sidebar-toggle-button">
-                            <span class="sn-icon">
-                                <span icon-data="sidebar_open"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="header-center">
-                    <div class="header-search">
-                        <input type="text" placeholder="Search"/>
-                        <div class="key-command">
-                            <span class="sn-icon">
-                                <span icon-data="command"></span>
-                            </span>
-                            <span class="key-text sn-icon">K</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-right">
-                        <span class="sn-icon">
-                            <span icon-data="bell"></span>
-                        </span>
-                        <div class="header-user">
-                            <img src="https://themewagon.github.io/volt-react-dashboard/static/media/profile-picture-3.9a250e5c.jpg" alt="logo">
-                            
-                        </div>
-                </div>
-            </div>
-        </header>
-        <main>
-            <div class="main-container">
-                <div class="main-header">
-                    <h1>Dashboard</h1>
-                </div>
-            </div>
-        </main>
-    
-    </div>
-</div>
+    .sidebar-nav ul{
+      list-style: none;
+      padding: 0rem 1rem;
+    }
+    .sidebar-nav ul li{
+      margin: 0.2rem 0;
+    }
+    .sidebar-nav ul li a{
+      display: flex;
+      align-items: center;
+      color: #707174;
+    }
+    .sidebar-nav ul li a .icon{
+      background-color: #2d2f33;
+      width:4rem;
+      height:4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      
+    }
+    .sidebar-nav ul li a:hover{
+      background-color: #2d2f33;
+      color: #d1d5db;
+    }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.querySelector('.sidebar-toggle-button');
-            const sidebar = document.querySelector('.sidebar');
-            const headerContainer = document.querySelector('.header-container');
-            const main = document.querySelector('main');
-            const sidebarIcon = document.querySelector('.sidebar-toggle-button .sn-icon span');
-            
-            // Función para actualizar el ícono
-            function updateIcon() {
-                const iconName = sidebarIcon.getAttribute('icon-data');
-                if (svgLibrary[iconName]) {
-                    sidebarIcon.innerHTML = svgLibrary[iconName];
-                }
-            }
-            
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('hidden');
-                headerContainer.classList.toggle('sidebar-hidden');
-                main.classList.toggle('sidebar-hidden');
-                
-                // Cambiar el ícono según el estado del sidebar
-                if (sidebar.classList.contains('hidden')) {
-                    sidebarIcon.setAttribute('icon-data', 'sidebar_closed');
-                } else {
-                    sidebarIcon.setAttribute('icon-data', 'sidebar_open');
-                }
-                
-                // Actualizar el ícono inmediatamente
-                updateIcon();
-            });
-        });
-    </script>
-    <script src="assets/js/main.js"></script>
+    .sidebar-header{
+       border-bottom: 1px solid var(--border-color-dark);
+       height: 4.8rem;
+    }
+    .sidebar .sidebar-footer {
+    margin-top: auto; /* empuja el footer hacia abajo */
+    height: 4.8rem;
+    border-top: 1px solid var(--border-color-dark);
+}
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--bg-header);
+      border-bottom: 1px solid var(--border-color-dark);
+      height: 4.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    main {
+      background-color: var(--bg-main);
+      color: white;
+      padding: 2rem;
+    }
+
+    /* Sidebar colapsado */
+    .collapsed {
+      width: 4rem; /* ancho reducido */
+    }
+    .overlay {
+      display: none;
+    }
+   /* Estilos para menú desplegable */
+.menu-item-with-submenu {
+    position: relative;
+    z-index: 10;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.submenu-arrow {
+    transition: all 0.3s ease;
+    margin-left: auto;
+    pointer-events: none;
+}
+
+/* Menú desplegable con JavaScript */
+.menu-item-with-submenu.open .submenu-arrow {
+    transform: rotate(90deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    border-left: 2px solid var(--border-color-dark);
+    padding-left: 1rem;
+    position: relative;
+    z-index: 5;
+}
+
+/* Abrir submenu cuando tiene clase 'open' */
+.menu-item-with-submenu.open .submenu {
+    max-height: 200px;
+}
+
+.submenu li {
+    margin: 0.5rem 0;
+}
+
+.sub-item-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #a0a3b1;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sub-item-link:hover {
+    background-color: hsl(240, 3.7%, 15.9%);
+    color: #d3d5de;
+}
+@media (max-width: 480px) {
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1010;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .app {
+        grid-template-columns: 0 1fr;
+        transition: grid-template-columns 0.3s ease;
+      }
+      .sidebar {
+        width: 0;
+      }
+      .collapsed {
+        width: 24rem;
+      }
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="tree-wrapper">
+  <div class="overlay"></div> 
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2>Menu</h2>
+        </div>
+         <div class="sidebar-body">
+          <nav class="sidebar-nav">
+              <ul>
+                  <li>
+                      <a href="#" class="active">
+                          <span class="icon">
+                              <i data-feather="grid"></i>
+                          </span>
+                          <span class="menu-text">Dashboard</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon">
+                              <i data-feather="git-commit"></i>
+                          </span>
+                          <span class="menu-text">Settings</span>
+                      </a>
+                  </li>
+                  <li class="menu-item-with-submenu">
+                      <a href="#" class="menu-toggle">
+                          <span class="icon">
+                              <i data-feather="users"></i>
+                          </span>
+                          <span class="menu-text">Users</span>
+                          <span class="submenu-arrow icon">
+                              <i data-feather="chevron-down"></i>
+                          </span>
+                      </a>
+                      <ul class="submenu">
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">User List</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">Add User</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">User Roles</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="menu-item-with-submenu">
+                      <a href="#" class="menu-toggle">
+                          <span class="icon">
+                              <i data-feather="users"></i>
+                          </span>
+                          <span class="menu-text">Users</span>
+                          <span class="submenu-arrow icon">
+                              <i data-feather="chevron-down"></i>
+                          </span>
+                      </a>
+                      <ul class="submenu">
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">User List</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">Add User</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="sub-item-link">
+                                  <span class="sub-item-text">User Roles</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon">
+                              <i data-feather="git_commit"></i>
+                          </span>
+                          <span class="menu-text">Settings</span>
+                      </a>
+                  </li>
+              </ul>
+          </nav>
+        
+      </div>
+      <div class="sidebar-footer">
+        footer
+      </div>
+    </aside>
+    <style>
+
+    </style>
+
+    <div class="content">
+      <header>
+        <button id="toggleBtn">Toggle</button>
+      </header>
+      <main>
+        <div class="container">
+          <p>Dashboard...</p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script>
+    feather.replace();
+</script> 
+<script>
+  // Delegación única para submenús y dropdown de perfil
+  (function(){
+    
+      document.addEventListener('click', (e) => {
+          // 1) Acordeón de submenús
+          const toggle = e.target.closest('.menu-toggle');
+          if (toggle) {
+              e.preventDefault();
+              const current = toggle.closest('.menu-item-with-submenu');
+              if (current) {
+                  document.querySelectorAll('.menu-item-with-submenu.open').forEach(li => {
+                      if (li !== current) li.classList.remove('open');
+                  });
+                  current.classList.toggle('open');
+              }
+              return; // no propagar más acciones para este click
+          }
+      });
+  })();
+      </script>
+  <!-- <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.querySelector('.overlay');
+    
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      overlay.classList.toggle('active');
+
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('collapsed');
+      overlay.classList.remove('active');
+    });
+  </script> -->
+
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.querySelector('.overlay');
+
+// Función para manejar el estado del sidebar
+function toggleSidebar() {
+    sidebar.classList.toggle('collapsed');
+    overlay.classList.toggle('active');
+    sidebar.classList.toggle('menu-text-collapse');
+}
+
+// Evento para el botón de toggle
+toggleBtn.addEventListener('click', toggleSidebar);
+
+// Evento para el overlay
+overlay.addEventListener('click', () => {
+    sidebar.classList.add('collapsed'); // Asegura que el sidebar se colapse
+    overlay.classList.remove('active');
+    sidebar.classList.add('menu-text-collapse');
+});
+
+// Evento para expandir el sidebar al pasar el mouse
+sidebar.addEventListener('mouseenter', () => {
+    if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        sidebar.classList.remove('menu-text-collapse');
+        overlay.classList.add('active');
+    }
+});
+
+// Evento para colapsar el sidebar al salir el mouse
+sidebar.addEventListener('mouseleave', () => {
+    if (!sidebar.classList.contains('collapsed')) {
+        sidebar.classList.add('collapsed');
+        sidebar.classList.add('menu-text-collapse');
+        overlay.classList.remove('active');
+    }
+});
+  </script>
+
 </body>
 </html>
